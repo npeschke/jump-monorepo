@@ -16,6 +16,7 @@ import matplotlib.image as mpimg
 import numpy as np
 import polars as pl
 import pyarrow as pa
+import pandas as pd
 from botocore import UNSIGNED
 from botocore.config import Config
 from matplotlib import pyplot as plt
@@ -286,9 +287,11 @@ def read_parquet_s3(path: str, lazy: bool = False) -> pl.DataFrame or pl.LazyFra
         result = pl.scan_pyarrow_dataset(ds.replace_schema(schema))  # .collect()
     else:
         # Read whole dataframe
-        result = pl.read_parquet(
-            path,
-            use_pyarrow=True,
-            storage_options={"anon": True},
+        result = pl.from_dataframe(
+            pd.read_parquet(
+                path,
+                engine="pyarrow",
+                storage_options={"anon": True}
+            )
         )
     return result
