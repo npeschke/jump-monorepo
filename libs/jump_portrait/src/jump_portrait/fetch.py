@@ -63,7 +63,7 @@ def format_cellpainting_s3() -> str:
     return (
         "s3://cellpainting-gallery/cpg0016-jump/"
         "{Metadata_Source}/"
-        "workspace/load_data_csv/"
+        "workspace/load_data_csv_orig/"
         "{Metadata_Batch}/"
         "{Metadata_Plate}/"
         "load_data_with_illum.parquet"
